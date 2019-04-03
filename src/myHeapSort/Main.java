@@ -40,19 +40,19 @@ public class Main {
 		printHeap(arr, arr.length, arr.length);
 	}
 
-	private static void selectionSort(int[] arr, int i, int j) {
+	private static void selectionSort(int[] arr, int from, int to) {
 		int maxIndex, temp;
 		
-		for (int sorted = i; sorted < j; sorted++) {
+		for (int sorted = from; sorted < to; sorted++) {
 			maxIndex = sorted;
-			for (int index = sorted + 1; index <= j; index++ ) {
+			for (int index = sorted + 1; index <= to; index++ ) {
 				if (arr[index] > arr[maxIndex])
 					maxIndex = index;
 			}
 			if (maxIndex != sorted) {
 				// swap
-				System.out.println("Swap siblings");
-				printHeap(arr, sorted, maxIndex);
+				//System.out.println("Swap siblings");
+				//printHeap(arr, sorted, maxIndex);
 				temp = arr[sorted];
 				arr[sorted] = arr[maxIndex];
 				arr[maxIndex] = temp;
@@ -90,7 +90,7 @@ public class Main {
 		int temp;
 
 		// swap parent and child
-		printHeap(arr, child, parent);
+		//printHeap(arr, child, parent);
 		temp = arr[child];
 		arr[child] = arr[parent];
 		arr[parent] = temp;
