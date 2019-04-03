@@ -3,31 +3,68 @@ package myHeapSort;
 import java.util.Arrays;
 
 public class Main {
+	private static int rows;
 
 	public static void main(String[] args) {
 		EclipseTools.fixConsole();
-		int[] arr = { 15, 17, 73, 21, 45, 11, 87, 55, 26, 17, 86, 17, 12, 55, 99 };
+		int[] arr = { 15, 17, 73, 21, 45, 11, 87, 55, 26, 17, 70, 17, 12, 55, 99 };
 
 		sortHeap(arr);
 
 	}
 
 	private static void sortHeap(int[] arr) {
+		// calculate number of rows
+		rows = 0;
+		int length = arr.length;
+		do {
+			rows++;
+		} while ((length >>= 1) > 0);
 
 		printHeap(arr, arr.length, arr.length);
 
 		// loop on all parents
+		// build priority 
 		for (int parent = arr.length / 2 - 1; parent >= 0; parent--) {
 			// call to recursive method
 			setBranch(arr, parent);
 		}
 		
+		// loop cross rows
+		for (int row = 1; row < rows; row++) {
+			// selection sort have less swap
+			selectionSort(arr, (1 << row) - 1, (1 << (row + 1)) - 2 );
+		}
+		
+		
 		printHeap(arr, arr.length, arr.length);
+	}
+
+	private static void selectionSort(int[] arr, int i, int j) {
+		int maxIndex, temp;
+		
+		for (int sorted = i; sorted < j; sorted++) {
+			maxIndex = sorted;
+			for (int index = sorted + 1; index <= j; index++ ) {
+				if (arr[index] > arr[maxIndex])
+					maxIndex = index;
+			}
+			if (maxIndex != sorted) {
+				// swap
+				System.out.println("Swap siblings");
+				printHeap(arr, sorted, maxIndex);
+				temp = arr[sorted];
+				arr[sorted] = arr[maxIndex];
+				arr[maxIndex] = temp;
+				// set branch with lower element
+				setBranch(arr, maxIndex);
+			}
+		}
+		
 	}
 
 	private static void setBranch(int[] arr, int root) {
 		int left = root * 2 + 1;
-		int right = left + 1;
 		
 		if (left == arr.length -1 ) {
 			// single last one 
@@ -35,15 +72,15 @@ public class Main {
 			if (arr[left] > arr[root])
 				swap(arr, left, root);
 		} else if (left < arr.length -1 ) {
-			if (arr[left] > arr[right]) {
+			if (arr[left] > arr[left + 1]) {
 				if (arr[left] > arr[root]) {
 					//System.out.println("Branch left -> " + root);
 					swap(arr, left, root);
 				}
 			} else {
-				if (arr[right] > arr[root]) {
+				if (arr[left + 1] > arr[root]) {
 					//System.out.println("Branch right -> " + root);
-					swap(arr, right, root);
+					swap(arr, left + 1, root);
 				}
 			}
 		}
@@ -52,18 +89,20 @@ public class Main {
 	private static void swap(int[] arr, int child, int parent) {
 		int temp;
 
+		// swap parent and child
 		printHeap(arr, child, parent);
 		temp = arr[child];
 		arr[child] = arr[parent];
 		arr[parent] = temp;
-		
+
+		// update child
 		setBranch(arr, child);
-		
 	}
 
 	private static void printHeap(int[] arr, int swap1, int swap2) {
 		// number of rows in heap
-		int rows = (int) Math.floor(Math.log(arr.length) / Math.log(2)) + 1;
+		//int rows = (int) Math.floor(Math.log(arr.length) / Math.log(2)) + 1;
+		// use global rows
 		String offset;
 		int count = 0;
 
