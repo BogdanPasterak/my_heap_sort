@@ -5,15 +5,15 @@ import java.util.Arrays;
 public class Main {
 
 	public static void main(String[] args) {
+		EclipseTools.fixConsole();
 		int[] arr = {15, 17, 73, 21, 45, 11, 87, 55, 26, 17, 91, 17, 12, 55, 99};
 		
 		System.out.println("Start");
-		System.out.println(Arrays.toString(arr));
 		
-		printHeap(arr);
+		printHeap(arr, arr.length / 2 - 1, arr.length - 1);
 	}
 
-	private static void printHeap(int[] arr) {
+	private static void printHeap(int[] arr, int swap1, int swap2) {
 		// number of rows in heap 
 		int rows = (int)Math.floor(Math.log(arr.length)/Math.log(2)) + 1;
 		String offset;
@@ -36,13 +36,16 @@ public class Main {
 			// print numbers
 			for (int col = 0; col < Math.pow(2, row); col++) {
 				if (count < arr.length) {
-					System.out.print(arr[count++] + offset);
+					if (count == swap1 || count == swap2)
+						System.err.print(arr[count++] + offset);
+					else
+						System.out.print(arr[count++] + offset);
 				}
 			}
 			
 			System.out.println();
 		}
-		System.out.println("------------------------------");
+
 	}
 
 }
