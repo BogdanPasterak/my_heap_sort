@@ -7,13 +7,13 @@ public class Main {
 
 	public static void main(String[] args) {
 		EclipseTools.fixConsole();
-		int[] arr = { 15, 17, 73, 21, 45, 11, 87, 55, 26, 17, 70, 17, 12, 55, 99 };
+		Integer[] arr = { 15, 17, 73, 21, 45, 11, 87, 55, 26, 17, 70, 17, 12, 55, 99 };
 
 		sortHeap(arr);
 
 	}
 
-	private static void sortHeap(int[] arr) {
+	public static void sortHeap(Integer[] arr) {
 		// calculate number of rows
 		rows = 0;
 		int length = arr.length;
@@ -21,7 +21,7 @@ public class Main {
 			rows++;
 		} while ((length >>= 1) > 0);
 
-		printHeap(arr, arr.length, arr.length);
+		//printHeap(arr, arr.length, arr.length);
 
 		// loop on all parents
 		// build priority 
@@ -37,10 +37,10 @@ public class Main {
 		}
 		
 		
-		printHeap(arr, arr.length, arr.length);
+		//printHeap(arr, arr.length, arr.length);
 	}
 
-	private static void selectionSort(int[] arr, int from, int to) {
+	private static void selectionSort(Integer[] arr, int from, int to) {
 		int maxIndex, temp;
 		
 		for (int sorted = from; sorted < to; sorted++) {
@@ -63,7 +63,7 @@ public class Main {
 		
 	}
 
-	private static void setBranch(int[] arr, int root) {
+	private static void setBranch(Integer[] arr, int root) {
 		int left = root * 2 + 1;
 		
 		if (left == arr.length -1 ) {
@@ -86,7 +86,7 @@ public class Main {
 		}
 	}
 
-	private static void swap(int[] arr, int child, int parent) {
+	private static void swap(Integer[] arr, int child, int parent) {
 		int temp;
 
 		// swap parent and child
@@ -99,7 +99,7 @@ public class Main {
 		setBranch(arr, child);
 	}
 
-	private static void printHeap(int[] arr, int swap1, int swap2) {
+	private static void printHeap(Integer[] arr, int swap1, int swap2) {
 		// number of rows in heap
 		//int rows = (int) Math.floor(Math.log(arr.length) / Math.log(2)) + 1;
 		// use global rows
