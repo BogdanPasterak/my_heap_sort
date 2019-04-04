@@ -21,7 +21,7 @@ public class Main {
 			rows++;
 		} while ((length >>= 1) > 0);
 
-		//printHeap(arr, arr.length, arr.length);
+		printHeap(arr, arr.length, arr.length);
 
 		// loop on all parents
 		// build priority 
@@ -31,10 +31,12 @@ public class Main {
 		}
 		
 		// loop cross rows
+		/* Not Work :(
 		for (int row = 1; row < rows; row++) {
 			// selection sort have less swap
 			selectionSort(arr, (1 << row) - 1, (1 << (row + 1)) - 2 );
 		}
+		*/
 		
 		
 		//printHeap(arr, arr.length, arr.length);
@@ -90,7 +92,7 @@ public class Main {
 		int temp;
 
 		// swap parent and child
-		//printHeap(arr, child, parent);
+		printHeap(arr, child, parent);
 		temp = arr[child];
 		arr[child] = arr[parent];
 		arr[parent] = temp;
